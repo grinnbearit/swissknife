@@ -1,4 +1,4 @@
-(ns util.core)
+(ns swissknife.core)
 
 
 (defn keep-last

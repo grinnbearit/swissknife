@@ -1,4 +1,4 @@
-(ns util.collections)
+(ns swissknife.collections)
 
 
 (defn queue

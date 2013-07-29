@@ -1,6 +1,6 @@
-(ns util.core-test
+(ns swissknife.core-test
   (:use [midje.sweet]
-        [util.collections]))
+        [swissknife.collections]))
 
 
 (facts
