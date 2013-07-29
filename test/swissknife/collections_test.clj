@@ -16,38 +16,35 @@
 
 
 (facts
- (priority-queue identity)
+ (priority-queue)
  => []
 
- (priority-queue identity 2 3 1)
+ (priority-queue identity < 2 3 1)
  => [1 2 3]
 
- (seq (priority-queue identity 2 3 1))
+ (priority-queue identity > 2 3 1)
+ => [3 2 1]
+
+ (seq (conj (priority-queue) 2 3 1))
  => [1 2 3]
 
- (= (priority-queue identity) [])
- => true
-
- (= (priority-queue identity 2 3 1) [1 2 3])
- => true
-
- (conj (priority-queue identity) 2 3 1)
+ (conj (priority-queue) 2 3 1)
  => [1 2 3]
 
- (empty? (priority-queue identity))
+ (empty? (priority-queue))
  => true
 
- (peek (priority-queue identity))
+ (peek (priority-queue))
  => nil
 
- (peek (priority-queue identity 2 3 1))
+ (peek (conj (priority-queue) 2 3 1))
  => 1
 
- (pop (priority-queue identity 2 3 1))
+ (pop (conj (priority-queue) 2 3 1))
  => [2 3]
 
- (-> (priority-queue identity 2 3 1) pop peek)
+ (-> (conj (priority-queue) 2 3 1) pop peek)
  => 2
 
- (-> (priority-queue identity 2 1 3 1) pop peek)
+ (-> (conj (priority-queue) 2 1 3 1) pop peek)
  => 1)

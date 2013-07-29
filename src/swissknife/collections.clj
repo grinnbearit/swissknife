@@ -35,6 +35,10 @@
 
 
 (defn priority-queue
-  [priority-fn & xs]
-  (-> (PersistentPriorityQueue. priority-fn (sorted-map))
-      (into xs)))
+  ([]
+     (PersistentPriorityQueue. identity (sorted-map)))
+  ([priority-fn]
+     (PersistentPriorityQueue. priority-fn (sorted-map)))
+  ([priority-fn comparator & xs]
+     (-> (PersistentPriorityQueue. priority-fn (sorted-map-by comparator))
+         (into xs))))
