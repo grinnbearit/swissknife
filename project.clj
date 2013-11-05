@@ -1,4 +1,4 @@
-(defproject swissknife "0.1.0"
+(defproject swissknife "0.2.0"
   :description "general purpose utility functions"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
