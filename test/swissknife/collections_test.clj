@@ -48,3 +48,60 @@
 
  (-> (conj (priority-queue) 2 1 3 1) pop peek)
  => 1)
+
+
+(facts
+ "MultiAssociative insert"
+
+ (insert {} :a 1)
+ => {:a 1}
+
+ (insert {:a 1} :b 2)
+ => {:a 1 :b 2}
+
+ (insert {:a 1} :a 1)
+ => {:a 1}
+
+ (insert {:a 1} :a 2)
+ => {:a #{1 2}}
+
+ (insert {:a 1} :a 2 :a 3)
+ => {:a #{1 2 3}})
+
+
+(facts
+ "MultiAssociative delete"
+
+ (delete {} :a 1)
+ => {}
+
+ (delete {:a 1} :a 2)
+ => {:a 1}
+
+ (delete {:a 1} :a 1)
+ => {}
+
+ (-> (insert {:a 1} :a 2)
+     (delete :a 1))
+ => {:a 2}
+
+ (-> (insert {:a 1} :a 2 :a 3)
+     (delete :a 1 :a 2))
+ => {:a 3})
+
+
+(facts
+ "MultiAssociative get"
+
+ (get-all {} :a)
+ => #{}
+
+ (get-all {} :a nil)
+ => nil
+
+ (get-all {:a 1} :a)
+ => #{1}
+
+ (-> (insert {:a 1} :a 2)
+     (get-all :a))
+ => #{1 2})
