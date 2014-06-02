@@ -37,3 +37,8 @@
 (defn standard-deviation
   [xs & {:keys [mu sigma sample?]}]
   (Math/sqrt (or sigma (variance xs :mu mu :sample? sample?))))
+
+
+(defn relative-frequencies
+  [points]
+  (reduce-kv #(assoc %1 %2 (/ %3 (count points))) {} (frequencies points)))
