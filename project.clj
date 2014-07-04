@@ -1,9 +1,11 @@
-(defproject swissknife "0.2.0"
+(defproject swissknife "0.3.0"
   :description "general purpose utility functions"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [org.clojure/clojurescript "0.0-2173"]]
+                 [org.clojure/clojurescript "0.0-2173"]
+                 [om "0.6.4"]
+                 [secretary "1.1.1"]]
   :source-paths ["src/clojure"]
   :test-paths ["test/clojure"]
   :cljsbuild {:builds [{:id "simple"
