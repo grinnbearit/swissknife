@@ -42,3 +42,8 @@
 (defn relative-frequencies
   [points]
   (reduce-kv #(assoc %1 %2 (/ %3 (count points))) {} (frequencies points)))
+
+
+(defn z-score
+  [x mu sigma]
+  (/ (- x mu) sigma))
