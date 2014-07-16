@@ -85,3 +85,15 @@
 
 (def negative?
   (validator neg? :negative?))
+
+
+(def not-negative?
+  (validator (comp not neg?) :not-negative?))
+
+
+(def not-positive?
+  (validator (comp not pos?) :not-positive?))
+
+
+(def probability?
+  (validator #(<= 0 % 1) :probability?))
