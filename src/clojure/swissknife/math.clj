@@ -6,6 +6,13 @@
   (reduce * (bigint 1) (range 1 (inc n))))
 
 
+(defn factors
+  [n]
+  (->> (range 1 (inc (Math/sqrt n)))
+       (filter #(= 0 (rem n %)))
+       (mapcat #(vector % (/ n %)))))
+
+
 (defn P
   [n k]
   (if (= n k)
