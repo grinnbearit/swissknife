@@ -54,3 +54,9 @@
 (defn z-score
   [x mu sigma]
   (/ (- x mu) sigma))
+
+
+(defn geometric-sum
+  "geometric sum of the series a^0 + a^1 ... + a^n"
+  [a n]
+  (/ (- (Math/pow a (inc n)) 1) (- a 1)))

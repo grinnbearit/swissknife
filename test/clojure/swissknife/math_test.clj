@@ -67,3 +67,10 @@
 
  (relative-frequencies [:a :a :b :c :d :d :d])
  => {:a 2/7 :b 1/7 :c 1/7 :d 3/7})
+
+
+(facts
+ "geometric sum"
+
+ (geometric-sum 2 5)
+ => 63.0)
