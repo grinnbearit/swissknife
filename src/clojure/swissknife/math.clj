@@ -1,5 +1,10 @@
 (ns swissknife.math)
 
+;;; constants
+
+(def TAU (* 2 Math/PI))
+
+;;; functions
 
 (defn factorial
   [n]
@@ -29,3 +34,13 @@
   "geometric sum of the series a^0 + a^1 ... + a^n"
   [a n]
   (/ (- (Math/pow a (inc n)) 1) (- a 1)))
+
+
+(defn degrees->radians
+  [d]
+  (* d TAU 1/360))
+
+
+(defn radians->degrees
+  [r]
+  (* r 360 (/ TAU)))

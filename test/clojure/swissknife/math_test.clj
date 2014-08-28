@@ -39,3 +39,11 @@
 
  (geometric-sum 2 5)
  => 63.0)
+
+
+(facts
+ (degrees->radians 90)
+ => (/ TAU 4)
+
+ (radians->degrees (/ TAU 4))
+ => 90.0)
