@@ -31,9 +31,9 @@
 
 
 (defn geometric-sum
-  "geometric sum of the series a^0 + a^1 ... + a^n"
-  [a n]
-  (/ (- (Math/pow a (inc n)) 1) (- a 1)))
+  "geometric sum of n terms of a series with first term a and common ratio r"
+  [a r n]
+  (* a (/ (dec (Math/pow r n)) (dec r))))
 
 
 (defn degrees->radians
