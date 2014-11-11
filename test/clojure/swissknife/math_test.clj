@@ -37,7 +37,7 @@
 (facts
  "geometric sum"
 
- (geometric-sum 2 5)
+ (geometric-sum 1 2 6)
  => 63.0)
 
 
