@@ -44,3 +44,12 @@
 (defn radians->degrees
   [r]
   (* r 360 (/ TAU)))
+
+
+(defn quadratic
+  [a b c]
+  (let [discriminant (- (* b b) (* 4 a c))]
+    (if (neg? discriminant)
+      (throw (ArithmeticException. "No real solutions"))
+      [(/ (+ (- b) (Math/sqrt discriminant)) (* 2 a))
+       (/ (- (- b) (Math/sqrt discriminant)) (* 2 a))])))

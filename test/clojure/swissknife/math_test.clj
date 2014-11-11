@@ -47,3 +47,11 @@
 
  (radians->degrees (/ TAU 4))
  => 90.0)
+
+
+(facts
+ (quadratic 1 0 -4)
+ => [2.0 -2.0]
+
+ (quadratic  1 2 3)
+ => (throws ArithmeticException))
