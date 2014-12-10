@@ -16,6 +16,22 @@
 
 
 (facts
+ (distinct-queue) => []
+
+ (distinct-queue 1 2 3) => [1 2 3]
+
+ (distinct-queue 1 1 2 2 3 3) => [1 2 3]
+
+ (peek (distinct-queue 1 1 3)) => 1
+
+ (pop (distinct-queue 1 1 3)) => [3]
+
+ (conj (distinct-queue 1 2 3) 2) => [1 2 3]
+
+ (conj (distinct-queue 1 2 3) 4) => [1 2 3 4])
+
+
+(facts
  (priority-queue)
  => []
 

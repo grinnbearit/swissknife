@@ -7,6 +7,36 @@
   (reduce conj (clojure.lang.PersistentQueue/EMPTY) xs))
 
 
+(deftype PersistentDistinctQueue [s q]
+
+  clojure.lang.IPersistentList
+  (seq [this]
+    (seq q))
+
+  (cons [this o]
+    (if (s o)
+      this
+      (PersistentDistinctQueue. (conj s o) (conj q o))))
+
+  (empty [this]
+    (PersistentDistinctQueue. #{} (queue)))
+
+  (equiv [this o]
+    (= (or (seq this) ()) o))
+
+  (peek [this]
+    (peek q))
+
+  (pop [this]
+    (PersistentDistinctQueue. (disj s (peek q)) (pop q))))
+
+
+(defn distinct-queue
+  "A queue with unique items, duplicate items are ignored when added"
+  [& xs]
+  (into (PersistentDistinctQueue. #{} (queue)) xs))
+
+
 (deftype PersistentPriorityQueue [f m]
 
   clojure.lang.IPersistentList
