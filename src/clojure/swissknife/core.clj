@@ -40,7 +40,6 @@ total: the whole which a fraction is compared to"
   ([by n xs]
      (bucket by n (reduce + (map by xs)) xs))
   ([by n total xs]
-     (println total)
      (letfn [(take-fraction [coll]
                (loop [acc [] sum 0 c coll]
                  (cond (empty? c)
