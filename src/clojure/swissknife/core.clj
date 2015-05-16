@@ -54,3 +54,23 @@ total: the whole which a fraction is compared to"
         (if (and (pos? total) (pos? n))
           (let [f (take-fraction xs)]
             (cons f (bucket by (dec n) (- total (/ total n)) (nthrest xs (count f))))))))))
+
+
+(defn map-keys
+  "Returns a new map with keys transformed by f
+
+If 2 or more keys are transformed to the same result, only one of the values is retained"
+  [f m]
+  (letfn [(walker [[k v]]
+            [(f k) v])]
+
+    (walk walker identity m)))
+
+
+(defn map-values
+  "Returns a new map with values transformed by f"
+  [f m]
+  (letfn [(walker [[k v]]
+            [k (f v)])]
+
+    (walk walker identity m)))

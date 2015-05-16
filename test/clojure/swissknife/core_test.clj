@@ -29,3 +29,20 @@
 
  (bucket #(* % %) 3 (range 10))
  => [[0 1 2 3 4 5 6 7] [8 9] []])       ; [140 145 0]
+
+
+(facts
+ "map-keys"
+
+ (map-keys inc {1 :a 2 :b})
+ => {2 :a 3 :b}
+
+ (map-keys #(rem % 3) {1 :a 3 :b 5 :c 6 :d})
+ => {0 :b 1 :a 2 :c})
+
+
+(facts
+ "map-values"
+
+ (map-values reverse {:a [1 2 3] :b [4 5 6]})
+ => {:a [3 2 1] :b [6 5 4]})
