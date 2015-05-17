@@ -74,3 +74,15 @@ If 2 or more keys are transformed to the same result, only one of the values is 
             [k (f v)])]
 
     (walk walker identity m)))
+
+
+(defn filter-keys
+  "Returns a new map with keys that satisfy pred"
+  [pred m]
+  (into {} (filter (comp pred first) m)))
+
+
+(defn filter-values
+  "Returns a new map with values that satisfy pred"
+  [pred m]
+  (into {} (filter (comp pred second) m)))

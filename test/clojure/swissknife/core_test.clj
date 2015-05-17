@@ -46,3 +46,17 @@
 
  (map-values reverse {:a [1 2 3] :b [4 5 6]})
  => {:a [3 2 1] :b [6 5 4]})
+
+
+(facts
+ "filter-keys"
+
+ (filter-keys even? {1 :a 2 :b 3 :c 4 :d})
+ => {2 :b 4 :d})
+
+
+(facts
+ "filter-values"
+
+ (filter-values even? {:a 1 :b 2 :c 3 :d 4})
+ => {:b 2 :d 4})
