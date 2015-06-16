@@ -1,6 +1,7 @@
 (ns swissknife.core-test
-  (:use [midje.sweet]
-        [swissknife.core]))
+  (:require [midje.sweet :refer :all]
+            [swissknife.core :refer :all]
+            [clojure.string :as str]))
 
 
 (facts
@@ -60,3 +61,23 @@
 
  (filter-values even? {:a 1 :b 2 :c 3 :d 4})
  => {:b 2 :d 4})
+
+
+(facts
+ "min-by"
+
+ (min-by #(* % %) [-3 4 5 2])
+ => 2
+
+ (min-by #(* % %) > [-3 4 5 2])
+ => 5)
+
+
+(facts
+ "max-by"
+
+ (max-by #(* % %) [-3 4 5 2])
+ => 5
+
+ (max-by #(* % %) > [-3 4 5 2])
+ => 2)

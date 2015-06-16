@@ -86,3 +86,39 @@
   "Returns a new map with values that satisfy pred"
   [pred m]
   (into {} (filter (comp pred second) m)))
+
+
+(defn min-by
+  "Has the same signature as sort-by
+
+  Returns the minimum of the items in coll, where the order
+  is determined by comparing (keyfn item).  If no comparator is
+  supplied, uses compare. Comparator must implement
+  java.util.Comparator."
+  ([keyfn coll]
+   (min-by keyfn compare coll))
+  ([keyfn comp coll]
+   (letfn [(reducer [curr-min next-item]
+             (if (= 1 (. comp (compare (keyfn curr-min) (keyfn next-item))))
+               next-item
+               curr-min))]
+
+     (reduce reducer coll))))
+
+
+(defn max-by
+  "Has the same signature as sort-by
+
+  Returns the maximum of the items in coll, where the order
+  is determined by comparing (keyfn item).  If no comparator is
+  supplied, uses compare. Comparator must implement
+  java.util.Comparator."
+  ([keyfn coll]
+   (max-by keyfn compare coll))
+  ([keyfn comp coll]
+   (letfn [(reducer [curr-min next-item]
+             (if (= -1 (. comp (compare (keyfn curr-min) (keyfn next-item))))
+               next-item
+               curr-min))]
+
+     (reduce reducer coll))))
