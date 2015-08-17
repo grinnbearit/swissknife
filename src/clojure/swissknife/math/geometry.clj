@@ -1,4 +1,5 @@
-(ns swissknife.math.geometry)
+(ns swissknife.math.geometry
+  (:require [swissknife.core :refer [min-by]]))
 
 
 (defrecord Point2D [x y])
@@ -12,7 +13,7 @@
 
 (defn intercept->line
   "If slope is positive infinity (line parallel to the y axis), the intercept is the x intercept
-otherwise, its the y intercept as usual"
+  otherwise, its the y intercept as usual"
   [slope intercept]
   (Line2D. slope intercept))
 
@@ -105,3 +106,31 @@ otherwise, its the y intercept as usual"
           (let [x (/ (- (:c line1) (:c line2))
                      (- (:m line2) (:m line1)))]
             (point x (y line1 x))))))
+
+
+(defn convex-hull
+  "Given a seq of points (min 2), returns the subset that forms the convex hull in order"
+  [points]
+  (letfn [(min-point-key [{:keys [x y]}]
+            [y x])
+
+          (orientation [p1 p2 p3]
+            (- (* (- (:x p2) (:x p1)) (- (:y p3) (:y p1)))
+               (* (- (:y p2) (:y p1)) (- (:x p3) (:x p1)))))
+
+          (compare-points [p1 p2]
+            (- (orientation (point 0 0) p1 p2)))
+
+          (right-turn? [p1 p2 p3]
+            (neg? (orientation p1 p2 p3)))]
+
+    (let [start (min-by min-point-key points)
+          sorted (rest (sort compare-points points))]
+      (loop [remaining (rest sorted) hull [[start (first sorted)]]]
+        (if (empty? remaining)
+          (conj (map second hull) start)
+          (let [[p1 p2] (peek hull)
+                p3 (first remaining)]
+            (if (right-turn? p1 p2 p3)
+              (recur remaining (pop hull))
+              (recur (rest remaining) (conj hull [p2 p3])))))))))

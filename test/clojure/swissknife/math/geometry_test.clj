@@ -93,3 +93,32 @@
  (intersects-at (intercept->line 1 0)
                 (intercept->line -1 2))
  => (point 1 1))
+
+
+(facts
+ "convex hull"
+
+ ;; degenerate case
+ (convex-hull [(point 0 0) (point 1 1)])
+ => [(point 0 0) (point 1 1)]
+
+ ;; 3 point hull
+ (convex-hull [(point 0 0) (point 2 2) (point 0 2)])
+ => [(point 0 0) (point 2 2) (point 0 2)]
+
+ ;; right turn from (1, 1) to (0, 2)
+ (convex-hull [(point 0 0) (point 2 2) (point 1 1) (point 0 2)])
+ => [(point 0 0) (point 2 2) (point 0 2)]
+
+ ;; negative points
+ (convex-hull [(point 0 0) (point 2 2) (point 0 2) (point -2 2)])
+ => [(point 0 0) (point 2 2) (point 0 2) (point -2 2)]
+
+ ;; right turn from (-1, 1) to (-2, 2)
+ (convex-hull [(point 0 0) (point 2 2) (point 0 2) (point -1 1) (point -2 2)])
+ => [(point 0 0) (point 2 2) (point 0 2) (point -2 2)]
+
+ ;; 2 right turns and a negative origin
+ (convex-hull [(point 0 -1) (point 2 2) (point 1 1)
+               (point 0 2) (point -1 1) (point -2 2)])
+ => [(point 0 -1) (point 2 2) (point 0 2) (point -2 2)])
