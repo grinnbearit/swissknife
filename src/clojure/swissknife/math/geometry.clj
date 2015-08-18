@@ -136,6 +136,27 @@
               (recur (rest remaining) (conj hull [p2 p3])))))))))
 
 
+(defn bounding-box
+  "Given a seq of points returns the bounding box"
+  [points]
+  (let [xs (map :x points)
+        ys (map :y points)]
+    {:bottom-left (point (apply min xs) (apply min ys))
+     :top-right (point (apply max xs) (apply max ys))}))
+
+
+(defn within-box?
+  "given the corners of a rectangle and a point p, returns true if p is within the
+  box"
+  [box p]
+  (and (<= (get-in box [:bottom-left :x])
+           (:x p)
+           (get-in box [:top-right :x]))
+       (<= (get-in box [:bottom-left :y])
+           (:y p)
+           (get-in box [:top-right :y]))))
+
+
 
 (defn within-polygon?
   "Given a seq of points defining a polygon and a point p, returns true if p is within the
@@ -158,7 +179,8 @@
             (let [op (if (negative? p1 p2 p) - +)]
               (op acc (angle p1 p2 p))))]
 
-    (let [sides (->> (concat polygon (take 1 polygon))
-                     (partition 2 1))
-          angle-sum (reduce reducer 0 sides)]
-      (pos? (Math/round (/ angle-sum (* 2 Math/PI)))))))
+    (and (within-box? (bounding-box polygon) p)
+         (let [sides (->> (concat polygon (take 1 polygon))
+                          (partition 2 1))
+               angle-sum (reduce reducer 0 sides)]
+           (pos? (Math/round (/ angle-sum (* 2 Math/PI))))))))

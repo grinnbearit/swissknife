@@ -125,6 +125,14 @@
 
 
 (facts
+ "bounding box"
+
+ (bounding-box [(point 0 0) (point 1 0) (point 0 1) (point -1 0) (point 0 -1)])
+ => {:top-right (point 1 1)
+     :bottom-left (point -1 -1)})
+
+
+(facts
  "within polygon?"
 
  (within-polygon? [(point 0 0) (point 2 0) (point 0 2)] (point 1 1))
