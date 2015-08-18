@@ -134,3 +134,31 @@
             (if (right-turn? p1 p2 p3)
               (recur remaining (pop hull))
               (recur (rest remaining) (conj hull [p2 p3])))))))))
+
+
+
+(defn within-polygon?
+  "Given a seq of points defining a polygon and a point p, returns true if p is within the
+  polygon"
+  [polygon p]
+  (letfn [(angle [p1 p2 p3]
+            (let [d13 (distance-sqr p1 p3)
+                  d23 (distance-sqr p2 p3)
+                  d12 (distance-sqr p1 p2)]
+              (Math/acos (/ (+ d13 d23 (- d12))
+                            (* 2 (Math/sqrt d13) (Math/sqrt d23))))))
+
+          (negative? [p1 p2 p3]
+            (< (* (- (:x p2) (:x p1))
+                  (- (:y p3) (:y p1)))
+               (* (- (:y p2) (:y p1))
+                  (- (:x p3) (:x p1)))))
+
+          (reducer [acc [p1 p2]]
+            (let [op (if (negative? p1 p2 p) - +)]
+              (op acc (angle p1 p2 p))))]
+
+    (let [sides (->> (concat polygon (take 1 polygon))
+                     (partition 2 1))
+          angle-sum (reduce reducer 0 sides)]
+      (pos? (Math/round (/ angle-sum (* 2 Math/PI)))))))

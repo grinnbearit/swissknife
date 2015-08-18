@@ -122,3 +122,13 @@
  (convex-hull [(point 0 -1) (point 2 2) (point 1 1)
                (point 0 2) (point -1 1) (point -2 2)])
  => [(point 0 -1) (point 2 2) (point 0 2) (point -2 2)])
+
+
+(facts
+ "within polygon?"
+
+ (within-polygon? [(point 0 0) (point 2 0) (point 0 2)] (point 1 1))
+ => true
+
+ (within-polygon? [(point 0 0) (point 2 0) (point 0 2)] (point 2 2))
+ => false)
