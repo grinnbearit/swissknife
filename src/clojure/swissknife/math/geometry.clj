@@ -118,14 +118,15 @@
             (- (* (- (:x p2) (:x p1)) (- (:y p3) (:y p1)))
                (* (- (:y p2) (:y p1)) (- (:x p3) (:x p1)))))
 
-          (compare-points [p1 p2]
-            (- (orientation (point 0 0) p1 p2)))
+          (compare-points [base p1 p2]
+            (- (orientation base p1 p2)))
 
           (right-turn? [p1 p2 p3]
             (neg? (orientation p1 p2 p3)))]
 
     (let [start (min-by min-point-key points)
-          sorted (rest (sort compare-points points))]
+          sorted (->> (remove #{start} points)
+                      (sort (partial compare-points start)))]
       (loop [remaining (rest sorted) hull [[start (first sorted)]]]
         (if (empty? remaining)
           (conj (map second hull) start)

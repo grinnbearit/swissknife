@@ -119,8 +119,9 @@
  => [(point 0 0) (point 2 2) (point 0 2) (point -2 2)]
 
  ;; 2 right turns and a negative origin
- (convex-hull [(point 0 -1) (point 2 2) (point 1 1)
-               (point 0 2) (point -1 1) (point -2 2)])
+ (convex-hull [(point 0 2) (point -1 1) (point -2 2)
+               (point 0 -1) (point 2 2) (point 1 1)])
+
  => [(point 0 -1) (point 2 2) (point 0 2) (point -2 2)])
 
 
