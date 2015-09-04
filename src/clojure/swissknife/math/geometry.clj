@@ -118,15 +118,16 @@
             (- (* (- (:x p2) (:x p1)) (- (:y p3) (:y p1)))
                (* (- (:y p2) (:y p1)) (- (:x p3) (:x p1)))))
 
-          (compare-points [base p1 p2]
-            (- (orientation base p1 p2)))
+          (angle [p q]
+            (Math/atan2 (- (:y q) (:y p))
+                        (- (:x q) (:x p))))
 
           (right-turn? [p1 p2 p3]
             (neg? (orientation p1 p2 p3)))]
 
     (let [start (min-by min-point-key points)
           sorted (->> (remove #{start} points)
-                      (sort (partial compare-points start)))]
+                      (sort-by (partial angle start)))]
       (loop [remaining (rest sorted) hull [[start (first sorted)]]]
         (if (empty? remaining)
           (conj (map second hull) start)
