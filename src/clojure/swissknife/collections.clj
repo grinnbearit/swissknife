@@ -66,12 +66,12 @@
 
 (defn priority-queue
   ([]
-     (PersistentPriorityQueue. identity (sorted-map)))
+   (PersistentPriorityQueue. identity (sorted-map)))
   ([priority-fn]
-     (PersistentPriorityQueue. priority-fn (sorted-map)))
+   (PersistentPriorityQueue. priority-fn (sorted-map)))
   ([priority-fn comparator & xs]
-     (-> (PersistentPriorityQueue. priority-fn (sorted-map-by comparator))
-         (into xs))))
+   (-> (PersistentPriorityQueue. priority-fn (sorted-map-by comparator))
+       (into xs))))
 
 
 ;;; From The Clojure Cookbook 2014
@@ -158,8 +158,8 @@
   "Returns a set of all values stored at key in a MultiAssociative.
    Returns the empty set if there are no values or not-found if provided."
   ([map key]
-     (-get-all map key))
+   (-get-all map key))
   ([map key not-found]
-     (if (contains? map key)
-       (-get-all map key)
-       not-found)))
+   (if (contains? map key)
+     (-get-all map key)
+     not-found)))
