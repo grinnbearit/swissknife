@@ -74,6 +74,46 @@
        (into xs))))
 
 
+(deftype PersistentDistinctPriorityQueue [c s]
+
+  clojure.lang.IPersistentList
+  (seq [this]
+    (seq s))
+
+  (cons [this o]
+    (PersistentDistinctPriorityQueue. c (conj s o)))
+
+  (empty [this]
+    (PersistentDistinctPriorityQueue. c (sorted-set-by c)))
+
+  (equiv [this o]
+    (= (or (seq this) ()) o))
+
+  (peek [this]
+    (first s))
+
+  (pop [this]
+    (PersistentDistinctPriorityQueue. c (disj s (first s)))))
+
+
+(defn distinct-priority-queue
+  ([]
+   (PersistentDistinctPriorityQueue. identity (sorted-set)))
+  ([priority-fn]
+   (letfn [(c [x y]
+             (compare (priority-fn x) (priority-fn y)))]
+
+     (PersistentDistinctPriorityQueue. c (sorted-set-by c))))
+
+  ([priority-fn comparator & xs]
+   (letfn [(c [x y]
+             (comparator (priority-fn x) (priority-fn y)))]
+
+     (-> (PersistentDistinctPriorityQueue. c (sorted-set-by c))
+         (into xs)))))
+
+
+
 ;;; From The Clojure Cookbook 2014
 ;;; https://github.com/clojure-cookbook/clojure-cookbook/tree/master/02_composite-data/2-22_multiple-values
 (defprotocol MultiAssociative

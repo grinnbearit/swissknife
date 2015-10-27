@@ -6,42 +6,42 @@
 (facts
  (queue) => []
 
- (queue 1 2 3) => [1 2 3]
+ (queue :a :b :c) => [:a :b :c]
 
- (peek (queue 1 2 3)) => 1
+ (peek (queue :a :b :c)) => :a
 
- (pop (queue 1 2 3)) => [2 3]
+ (pop (queue :a :b :c)) => [:b :c]
 
- (conj (queue 1 2 3) 4) => [1 2 3 4])
+ (conj (queue :a :b :c) :d) => [:a :b :c :d])
 
 
 (facts
  (distinct-queue) => []
 
- (distinct-queue 1 2 3) => [1 2 3]
+ (distinct-queue :a :b :c) => [:a :b :c]
 
- (distinct-queue 1 1 2 2 3 3) => [1 2 3]
+ (distinct-queue :a :a :b :b :c :c) => [:a :b :c]
 
- (peek (distinct-queue 1 1 3)) => 1
+ (peek (distinct-queue :a :a :c)) => :a
 
- (pop (distinct-queue 1 1 3)) => [3]
+ (pop (distinct-queue :a :a :c)) => [:c]
 
- (conj (distinct-queue 1 2 3) 2) => [1 2 3]
+ (conj (distinct-queue :a :b :c) :b) => [:a :b :c]
 
- (conj (distinct-queue 1 2 3) 4) => [1 2 3 4])
+ (conj (distinct-queue :a :b :c) :d) => [:a :b :c :d])
 
 
 (facts
  (priority-queue)
  => []
 
- (priority-queue identity < 2 3 1)
- => [1 2 3]
+ (priority-queue {:a 1 :b 2 :c 3} < :a :b :c)
+ => [:a :b :c]
 
- (priority-queue identity > 2 3 1)
- => [3 2 1]
+ (priority-queue {:a 1 :b 2 :c 3} > :a :b :c)
+ => [:c :b :a]
 
- (seq (conj (priority-queue) 2 3 1))
+ (seq (conj (priority-queue) 3 1 2))
  => [1 2 3]
 
  (conj (priority-queue) 2 3 1)
@@ -63,7 +63,62 @@
  => 2
 
  (-> (conj (priority-queue) 2 1 3 1) pop peek)
- => 1)
+ => 1
+
+ (count (conj (priority-queue) 2 3 2 2))
+ => 4)
+
+
+(facts
+ "Persistent Distinct Priority Queue"
+
+ (distinct-priority-queue)
+ => []
+
+ (distinct-priority-queue {:a 1 :b 2 :c 3} < :a :b :c)
+ => [:a :b :c]
+
+ (distinct-priority-queue {:a 1 :b 2 :c 3} < :a :a :b :b :c :c)
+ => [:a :b :c]
+
+ (distinct-priority-queue {:a 1 :b 2 :c 3} > :a :b :c)
+ => [:c :b :a]
+
+ (distinct-priority-queue {:a 1 :b 2 :c 3} > :a :a :b :b :c :c)
+ => [:c :b :a]
+
+ (seq (conj (distinct-priority-queue) 3 1 2))
+ => [1 2 3]
+
+ (seq (conj (distinct-priority-queue) 3 3 1 1 2 2))
+ => [1 2 3]
+
+ (conj (distinct-priority-queue) 2 3 1)
+ => [1 2 3]
+
+ (conj (distinct-priority-queue) 2 2 3 3 1 1)
+ => [1 2 3]
+
+ (empty? (distinct-priority-queue))
+ => true
+
+ (peek (distinct-priority-queue))
+ => nil
+
+ (peek (conj (distinct-priority-queue) 2 3 1))
+ => 1
+
+ (pop (conj (distinct-priority-queue) 2 3 1))
+ => [2 3]
+
+ (peek (conj (distinct-priority-queue) 2 3 1 2))
+ => 1
+
+ (pop (conj (distinct-priority-queue) 2 3 1 2))
+ => [2 3]
+
+ (count (conj (distinct-priority-queue) 2 3 2 2))
+ => 2)
 
 
 (facts
