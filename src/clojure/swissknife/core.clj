@@ -103,7 +103,8 @@
                next-item
                curr-min))]
 
-     (reduce reducer coll))))
+     (when (seq coll)
+       (reduce reducer coll)))))
 
 
 (defn max-by
@@ -121,4 +122,5 @@
                next-item
                curr-min))]
 
-     (reduce reducer coll))))
+     (when (seq coll)
+       (reduce reducer coll)))))
