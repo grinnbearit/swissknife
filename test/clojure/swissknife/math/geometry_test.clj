@@ -141,3 +141,12 @@
 
  (within-polygon? [(point 0 0) (point 2 0) (point 0 2)] (point 2 2))
  => false)
+
+
+(facts
+ "centroid"
+
+ (centroid [(point 0 0)]) => (point 0 0)
+
+ (centroid [(point -1 -1) (point 1 1)
+            (point -1 1) (point 1 -1)]) => (point 0 0))

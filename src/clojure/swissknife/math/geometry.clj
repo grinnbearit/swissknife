@@ -186,3 +186,11 @@
                           (partition 2 1))
                angle-sum (reduce reducer 0 sides)]
            (pos? (Math/round (/ angle-sum (* 2 Math/PI))))))))
+
+
+(defn centroid
+  "Returns the centroid of a list of points"
+  [points]
+  (let [avg-x (/ (apply + (map :x points)) (count points))
+        avg-y (/ (apply + (map :y points)) (count points))]
+    (point avg-x avg-y)))
